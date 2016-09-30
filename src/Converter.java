@@ -3,6 +3,7 @@
  * Note for reader: coded after midnight ;)
  */
 public class Converter {
+    // The input number split into:
     private int ones, tens, hundreds, thousands;
 
     // Arrays
@@ -48,14 +49,11 @@ public class Converter {
 
     public String convert(int number){
         String theThousands, theHundreds, theTens, theOnes;
-
         setConstants(number);
-
         theThousands = makeRomanThousands(thousands);
         theHundreds = makeRomanBelowAThousand(hundredsArray, hundreds);
         theTens = makeRomanBelowAThousand(tensArray, tens);
         theOnes = makeRomanBelowAThousand(onesArray,ones);
-
         return theThousands + theHundreds + theTens + theOnes;
     }
 
@@ -80,8 +78,6 @@ public class Converter {
             case 9:
                 return romans[8];
             default: return "";
-
-
         }
     }
 
