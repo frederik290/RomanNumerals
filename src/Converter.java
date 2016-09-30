@@ -1,44 +1,49 @@
 /**
- * Very verbose solution for converting an integer to a Roman Numeral.
- * Shorter version on the way...
+ * A verbose solution for converting an integer to a Roman Numeral.
+ * Note for reader: coded after midnight ;)
  */
 public class Converter {
     private int ones, tens, hundreds, thousands;
 
-    // A Roman number can be made of the following components:
-    private String one, two, three, four, five, six, seven, eight, nine;
-    private String ten, twenty, thirty, fourty, fifty, sixty, seventy, eighty, ninety;
-    private String h1, h2, h3, h4, h5, h6, h7, h8, h9, t1;
+    // Arrays
+    private String[] onesArray;
+    private String[] tensArray;
+    private String[] hundredsArray;
 
     public Converter(){
-        one = "I";
-        two = "II";
-        three = "III";
-        four = "IV";
-        five = "V";
-        six = "VI";
-        seven = "VII";
-        eight = "VIII";
-        nine = "IX";
-        ten = "X";
-        twenty = "XX";
-        thirty = "XXX";
-        fourty = "XL";
-        fifty = "L";
-        sixty = "LX";
-        seventy = "LXX";
-        eighty =  "LXXX";
-        ninety = "XC";
-        h1 = "C";
-        h2 = "CC";
-        h3 = "CCC";
-        h4 = "CD";
-        h5 = "D";
-        h6 = "DC";
-        h7 = "DCC";
-        h8 = "DCCC";
-        h9 = "CM";
-        t1 = "M";
+        onesArray = new String[9];
+        tensArray = new String[9];
+        hundredsArray = new String[9];
+
+        onesArray[0] = "I";
+        onesArray[1]= "II";
+        onesArray[2] = "III";
+        onesArray[3]= "IV";
+        onesArray[4]="V";
+        onesArray[5]="VI";
+        onesArray[6]="VII";
+        onesArray[7]="VIII";
+        onesArray[8]="IX";
+
+        tensArray[0] = "X";
+        tensArray[1] = "XX";
+        tensArray[2] = "XXX";
+        tensArray[3] = "XL";
+        tensArray[4] = "L";
+        tensArray[5] = "LX";
+        tensArray[6] = "LXX";
+        tensArray[7] = "LXXX";
+        tensArray[8] = "XC";
+
+        hundredsArray[0] = "C";
+        hundredsArray[1] = "CC";
+        hundredsArray[2] = "CCC";
+        hundredsArray[3] = "CD";
+        hundredsArray[4] = "D";
+        hundredsArray[5] = "DC";
+        hundredsArray[6] = "DCC";
+        hundredsArray[7] = "DCCC";
+        hundredsArray[8] = "CM";
     }
 
     public String convert(int number){
@@ -47,85 +52,33 @@ public class Converter {
         setConstants(number);
 
         theThousands = makeRomanThousands(thousands);
-        theHundreds = makeRomanHundreds(hundreds);
-        theTens = makeRomanTens(tens);
-        theOnes = makeRomanOnes(ones);
+        theHundreds = makeRomanBelowAThousand(hundredsArray, hundreds);
+        theTens = makeRomanBelowAThousand(tensArray, tens);
+        theOnes = makeRomanBelowAThousand(onesArray,ones);
 
         return theThousands + theHundreds + theTens + theOnes;
     }
 
-    private String makeRomanOnes(int ones) {
-        switch (ones){
+    private String makeRomanBelowAThousand(String[] romans, int amount) {
+        switch (amount){
             case 1:
-                return one;
+                return romans[0];
             case 2:
-                return two;
+                return romans[1];
             case 3:
-                return three;
+                return romans[2];
             case 4:
-                return four;
+                return romans[3];
             case 5:
-                return five;
+                return romans[4];
             case 6:
-                return six;
+                return romans[5];
             case 7:
-                return seven;
+                return romans[6];
             case 8:
-                return eight;
+                return romans[7];
             case 9:
-                return nine;
-            default: return "";
-
-
-        }
-    }
-
-    private String makeRomanTens(int tens) {
-        switch (tens){
-            case 1:
-                return ten;
-            case 2:
-                return twenty;
-            case 3:
-                return thirty;
-            case 4:
-                return fourty;
-            case 5:
-                return fifty;
-            case 6:
-                return sixty;
-            case 7:
-                return seventy;
-            case 8:
-                return eighty;
-            case 9:
-                return ninety;
-            default: return "";
-
-
-        }
-    }
-
-    private String makeRomanHundreds(int hundreds){
-        switch (hundreds){
-            case 1:
-                return h1;
-            case 2:
-                return h2;
-            case 3:
-                return h3;
-            case 4:
-                return h4;
-            case 5:
-                return h5;
-            case 6:
-                return h6;
-            case 7:
-                return h7;
-            case 8:
-                return h8;
-            case 9:
-                return h9;
+                return romans[8];
             default: return "";
 
 
@@ -135,7 +88,7 @@ public class Converter {
     private String makeRomanThousands(int thousands){
         String result = "";
         for(int i = 0; i < thousands; i++){
-            result += t1;
+            result += "M";
         }
         return result;
     }
